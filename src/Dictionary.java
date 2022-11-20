@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class Dictionary {
-    HashMap<String, HashSet<String>> dictionary;
+    Map<String, Set<String>> dictionary;
 
     public Dictionary() {
-        this.dictionary = new HashMap<String, HashSet<String>>();
+        this.dictionary = new HashMap<String, Set<String>>();
     }
 
     public void readFile(String fileName) throws IOException {
@@ -27,7 +27,7 @@ public class Dictionary {
 
             if (keyValues.length == 2) {
                 String[] values = keyValues[1].split("\\| ");
-                HashSet<String> valueSet = new HashSet<String>(values.length);
+                Set<String> valueSet = new HashSet<String>(values.length);
 
                 for (String value : values) {
                     valueSet.add(value);
@@ -36,7 +36,7 @@ public class Dictionary {
                 dictionary.put(keyValues[0], valueSet);
                 previousKey = keyValues[0];
             } else {
-                HashSet<String> valueSet = dictionary.get(previousKey);
+                Set<String> valueSet = dictionary.get(previousKey);
                 valueSet.add(keyValues[0]);
                 dictionary.put(previousKey, valueSet);
             }
@@ -44,7 +44,7 @@ public class Dictionary {
     }
 
     public void printMap() {
-        for (Map.Entry<String, HashSet<String>> entry : dictionary.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
             System.out.println("Key: " + entry.getKey());
             System.out.print("Values: ");
             for(int i = 0; i < entry.getValue().size(); i++){
