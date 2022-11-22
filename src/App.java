@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class App {
@@ -9,8 +11,7 @@ public class App {
     private JPanel content;
     private DefaultTableModel tableModelHistory;
     private JPanel cards[];
-
-    public final String features[] = {"1. Search by slang word",
+    public static final String FEATURES[] = {"1. Search by slang word",
             "2. Search by definition",
             "3. View history",
             "4. Add slang word",
@@ -20,10 +21,12 @@ public class App {
             "8. Random slang word",
             "9. Game 1",
             "10. Game 2"};
+    public static final int INDEX_RESET = 6;
+    public static final String CONSTRAINT_CARD_MENU = "MENU";
 
     public App() {
         dictionary = new Dictionary();
-        cards = new JPanel[features.length + 1];
+        cards = new JPanel[FEATURES.length + 1]; // +card of menu
         tableModelHistory = new DefaultTableModel();
     }
 
@@ -59,10 +62,11 @@ public class App {
         for (int i = 0; i < cards.length; i++) {
             createFeatureGUI(i);
             if (i == 0)
-                content.add(cards[i], "START");
+                content.add(cards[i], CONSTRAINT_CARD_MENU);
             else
-                content.add(cards[i], features[i - 1]);
+                content.add(cards[i], FEATURES[i - 1]);
         }
+
         pane.add(content);
     }
 
@@ -73,18 +77,23 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.addComponentToPane(frame.getContentPane());
-        frame.setJMenuBar(new Menu(content, features));
+        frame.setJMenuBar(new Menu(frame, dictionary, content));
 
         frame.pack();
         frame.setVisible(true);
         frame.setMinimumSize(new Dimension(500, 500));
         frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                dictionary.save();
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException {
         App app = new App();
 
-        app.dictionary.readFile("slang.txt");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

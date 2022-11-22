@@ -11,7 +11,7 @@ public class Feature6 extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         int isConfirm = JOptionPane.showConfirmDialog(frame,
                 "Are you confirm the deletion of the slang word?",
-                "Confirrm Dialog",
+                "Confirm Dialog",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
 
