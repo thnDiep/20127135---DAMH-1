@@ -45,41 +45,59 @@ public class Dictionary {
     }
 
     // Fearture 1
-    public void searchWordBySlangWord(String keyWord){
-        this.subDictionary = new HashMap<String, Set<String>>();
+    public void searchWordBySlangWord(String keyWord) {
+        subDictionary = new HashMap<String, Set<String>>();
 
         for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
-           String key = entry.getKey();
+            String key = entry.getKey();
 
-           if(key.toLowerCase().indexOf(keyWord.toLowerCase()) == 0){
-               subDictionary.put(key, entry.getValue());
-           }
+            if (key.toLowerCase().indexOf(keyWord.toLowerCase()) == 0) {
+                subDictionary.put(key, entry.getValue());
+            }
         }
     }
 
     // Feature 2
-    public void searchWordByDefinition(String definition){
-        this.subDictionary = new HashMap<String, Set<String>>();
+    public void searchWordByDefinition(String definition) {
+        subDictionary = new HashMap<String, Set<String>>();
 
         for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
             String key = entry.getKey();
             Set<String> values = entry.getValue();
 
             for (int i = 0; i < values.size(); i++) {
-                if(values.toArray()[i].toString().toLowerCase().contains(definition.toLowerCase())){
+                if (values.toArray()[i].toString().toLowerCase().contains(definition.toLowerCase())) {
                     subDictionary.put(key, entry.getValue());
                 }
             }
-
         }
     }
+
+    // Feature 4
+    public boolean add(String slangWord, String definition, boolean isForce) {
+        Set<String> definitions;
+
+        if (dictionary.containsKey(slangWord)) {
+            if (!isForce)
+                return false;
+
+            definitions = dictionary.get(slangWord);
+            definitions.add(definition);
+        } else {
+            definitions = new HashSet<String>();
+            definitions.add(definition);
+            dictionary.put(slangWord, definitions);
+        }
+        return true;
+    }
+
     public void printMap(Map<String, Set<String>> map) {
         for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey());
             System.out.print("Values: ");
-            for(int i = 0; i < entry.getValue().size(); i++){
+            for (int i = 0; i < entry.getValue().size(); i++) {
                 System.out.print(entry.getValue().toArray()[i]);
-                if(i < entry.getValue().size() - 1){
+                if (i < entry.getValue().size() - 1) {
                     System.out.print(", ");
                 }
             }

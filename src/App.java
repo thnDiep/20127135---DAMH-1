@@ -11,7 +11,7 @@ public class App {
     JFrame frame;
     private JMenu menu;
     private JPanel content;
-    private JTextField textField1, textField2;
+    private JTextField textField1, textField2, textField3, textField4;
     private DefaultTableModel modelTable1, modelTable2, modelTable3;
     private JPanel cards[];
 
@@ -89,6 +89,41 @@ public class App {
             }
             frame.pack();
             frame.setPreferredSize(new Dimension(500, 500));
+        }
+    }
+
+    class AddButtonActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent ae) {
+            boolean isAdded = dict.add(textField3.getText(), textField4.getText(), false);
+
+            if (isAdded)
+                JOptionPane.showMessageDialog(frame,
+                        "You just successfully added a new slang word",
+                        "Successful Dialog",
+                        JOptionPane.INFORMATION_MESSAGE);
+            else {
+                int output = JOptionPane.showConfirmDialog(frame,
+                        "The slang word has already exist. Do you want to continue adding overwrites?",
+                        "Comfirm Dialog",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+                if (output == JOptionPane.YES_OPTION) {
+                    dict.add(textField3.getText(), textField4.getText(), true);
+                    JOptionPane.showMessageDialog(frame,
+                            "You just successfully added a new slang word",
+                            "Successful Dialog",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame,
+                            "You just canceled the operation of adding new slang word",
+                            "Information Dialog",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+
+            textField3.setText("");
+            textField4.setText("");
         }
     }
 
@@ -189,6 +224,34 @@ public class App {
         cards[3].add(output);
     }
 
+    private void createFeature4() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JButton buttonAdd = new JButton("Add");
+        textField3 = new JTextField();
+        textField4 = new JTextField();
+
+        textField3.setMaximumSize(new Dimension(800, 24));
+        textField4.setMaximumSize(new Dimension(800, 24));
+        buttonAdd.addActionListener(new AddButtonActionListener());
+
+        panel.add(new JLabel("Input the new slang word: "));
+        panel.add(textField3);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        panel.add(new JLabel("Input the definition of the new slang word part: "));
+        panel.add(textField4);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        panel.add(buttonAdd);
+
+        cards[4].setLayout(new BoxLayout(cards[4], BoxLayout.Y_AXIS));
+        cards[4].add(Box.createRigidArea(new Dimension(15, 0)));
+        cards[4].add(panel);
+        frame.pack();
+    }
+
     private void createFeatureGUI(int i) {
         cards[i] = new JPanel();
         switch (i) {
@@ -200,6 +263,9 @@ public class App {
                 break;
             case 3:
                 createFeature3();
+                break;
+            case 4:
+                createFeature4();
                 break;
             default:
                 break;
@@ -231,7 +297,7 @@ public class App {
         this.addComponentToPane(frame.getContentPane());
 
         frame.pack();
-        frame.setPreferredSize(new Dimension(500, 500));
+//        frame.setPreferredSize(new Dimension(500, 500));
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
