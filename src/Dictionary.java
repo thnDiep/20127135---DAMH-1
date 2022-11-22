@@ -216,6 +216,10 @@ public class Dictionary {
         }
     }
 
+    public Map<String, Set<String>> getDictionary() {
+        return dictionary;
+    }
+
     public Map<String, Set<String>> getSubDictionary() {
         return subDictionary;
     }
