@@ -202,6 +202,14 @@ public class Dictionary {
         return true;
     }
 
+    // Feature 8
+    public String randomSlangWord(){
+        Random generator = new Random();
+        Object[] key = dictionary.keySet().toArray();
+        String randomKey = key[generator.nextInt(key.length)].toString();
+        return randomKey;
+    }
+
     public void printMap(Map<String, Set<String>> map) {
         for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey());

@@ -13,9 +13,7 @@ public class Feature8 extends JPanel implements ActionListener {
     private JLabel valueLabel;
 
     public void actionPerformed(ActionEvent ae) {
-        Random generator = new Random();
-        Object[] key = dictionary.getDictionary().keySet().toArray();
-        Object randomKey = key[generator.nextInt(key.length)];
+        String randomKey = dictionary.randomSlangWord();
         Set<String> values = dictionary.getDictionary().get(randomKey);
 
         String text = "";
