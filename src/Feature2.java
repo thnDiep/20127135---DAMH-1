@@ -40,7 +40,7 @@ public class Feature2 extends JPanel implements ActionListener {
 
         // Input part
         JPanel input = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        input.add(new JLabel("Input the definition: "));
+        input.add(new JLabel("Enter the definition: "));
 
         JTextField textField = new JTextField("", 20);
         textField.addActionListener(this);

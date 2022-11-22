@@ -40,7 +40,7 @@ public class Feature1 extends JPanel implements ActionListener {
 
         // Input part
         JPanel input = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        input.add(new JLabel("Input the slang word: "));
+        input.add(new JLabel("Enter the slang word: "));
 
         JTextField textField = new JTextField("", 20);
         textField.addActionListener(this);

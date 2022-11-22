@@ -3,27 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Feature4 extends JPanel implements ActionListener {
+public class Feature5 extends JPanel implements ActionListener {
     private JFrame frame;
     private Dictionary dictionary;
     private JTextField slangWord, definition;
 
     public void actionPerformed(ActionEvent ae) {
-        boolean isAdded = dictionary.add(slangWord.getText(), definition.getText(), null); // Check key
+        boolean isEdited = dictionary.edit(slangWord.getText(), definition.getText());
 
-        if (!isAdded) {
-            // Show dialog confirm
-            JOptionPane optionPane = new JOptionPane("The slang word has already exist. Are you want to overwrite or duplicate it?");
-            optionPane.setOptions(dictionary.getOptions());
-            JDialog dialog = optionPane.createDialog(frame, "Confirm dialog");
-            dialog.setVisible(true);
-
-            isAdded = dictionary.add(slangWord.getText(), definition.getText(), (String) optionPane.getValue());
-        }
-
-        if (isAdded) {
+        if (isEdited) {
             JOptionPane.showMessageDialog(frame,
-                    "You just successfully added a new slang word",
+                    "You just successfully edited the slang word",
                     "Successful Dialog",
                     JOptionPane.INFORMATION_MESSAGE);
 
@@ -31,13 +21,13 @@ public class Feature4 extends JPanel implements ActionListener {
             definition.setText("");
         } else {
             JOptionPane.showMessageDialog(frame,
-                    "Adding failure. Please try again",
+                    "Editing failure: The slang word does not exist",
                     "Failed Dialog",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public Feature4(JFrame frame, Dictionary dictionary) {
+    public Feature5(JFrame frame, Dictionary dictionary) {
         this.frame = frame;
         this.dictionary = dictionary;
         this.slangWord = new JTextField();
@@ -46,22 +36,22 @@ public class Feature4 extends JPanel implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JButton buttonAdd = new JButton("Add");
+        JButton buttonEdit = new JButton("Edit");
 
         slangWord.setMaximumSize(new Dimension(900, 24));
         definition.setMaximumSize(new Dimension(900, 24));
 
-        buttonAdd.addActionListener(this);
+        buttonEdit.addActionListener(this);
 
-        panel.add(new JLabel("Enter the new slang word: "));
+        panel.add(new JLabel("Enter the slang word you want to edit: "));
         panel.add(slangWord);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        panel.add(new JLabel("Enter the definition of the new slang word part: "));
+        panel.add(new JLabel("Enter the definition of the slang word: "));
         panel.add(definition);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        panel.add(buttonAdd);
+        panel.add(buttonEdit);
 
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         add(Box.createRigidArea(new Dimension(15, 0)));

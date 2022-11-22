@@ -77,6 +77,9 @@ public class Dictionary {
 
     // Feature 4
     public boolean add(String slangWord, String definition, String type) {
+        if(slangWord.trim().length() == 0)
+            return false;
+
         Set<String> definitions;
         String keyExist = "";
 
@@ -106,6 +109,27 @@ public class Dictionary {
             definitions.add(definition);
             dictionary.put(slangWord, definitions);
         }
+        return true;
+    }
+
+
+    // Feature 5
+    public boolean edit(String slangWord, String definition) {
+        Set<String> definitions;
+        String keyExist = "";
+
+        for(String key : dictionary.keySet()) {
+            if(key.toLowerCase().equals(slangWord.toLowerCase())){
+                keyExist = key;
+            }
+        }
+
+        if (keyExist.length() == 0)
+            return false;
+
+        definitions = dictionary.get(keyExist);
+        definitions.clear();
+        definitions.add(definition);
         return true;
     }
 
