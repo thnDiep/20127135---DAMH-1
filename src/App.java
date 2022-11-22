@@ -11,9 +11,8 @@ public class App {
     JFrame frame;
     private JMenu menu;
     private JPanel content;
-    private JLabel label;
-    private JTextField textField;
-    private DefaultTableModel modelTable;
+    private JTextField textField1, textField2;
+    private DefaultTableModel modelTable1, modelTable2, modelTable3;
     private JPanel cards[];
 
     private final String features[] = {"1. Search by slang word",
@@ -42,9 +41,9 @@ public class App {
     class SearchBySlangWordActionListener implements ActionListener {
         public void actionPerformed(ActionEvent ae) {
             dict.searchWordBySlangWord(ae.getActionCommand());
-            modelTable.setRowCount(0);
+            modelTable1.setRowCount(0);
 
-            for (Map.Entry<String, Set<String>> entry : dict.subDictionary.entrySet()) {
+            for (Map.Entry<String, Set<String>> entry : dict.getSubDictionary().entrySet()) {
                 String row[] = new String[2];
 
                 row[0] = entry.getKey();
@@ -58,7 +57,8 @@ public class App {
                     }
                 }
 
-                modelTable.insertRow(modelTable.getRowCount(), new Object[]{row[0], row[1]});
+                modelTable1.insertRow(modelTable1.getRowCount(), new Object[]{row[0], row[1]});
+                modelTable3.insertRow(modelTable3.getRowCount(), new Object[]{row[0], row[1]}); // history
             }
             frame.pack();
             frame.setPreferredSize(new Dimension(500, 500));
@@ -68,9 +68,9 @@ public class App {
     class SearchByDefinitionActionListener implements ActionListener {
         public void actionPerformed(ActionEvent ae) {
             dict.searchWordByDefinition(ae.getActionCommand());
-            modelTable.setRowCount(0);
+            modelTable2.setRowCount(0);
 
-            for (Map.Entry<String, Set<String>> entry : dict.subDictionary.entrySet()) {
+            for (Map.Entry<String, Set<String>> entry : dict.getSubDictionary().entrySet()) {
                 String row[] = new String[2];
 
                 row[0] = entry.getKey();
@@ -84,7 +84,8 @@ public class App {
                     }
                 }
 
-                modelTable.insertRow(modelTable.getRowCount(), new Object[]{row[0], row[1]});
+                modelTable2.insertRow(modelTable2.getRowCount(), new Object[]{row[0], row[1]});
+                modelTable3.insertRow(modelTable3.getRowCount(), new Object[]{row[0], row[1]}); // history
             }
             frame.pack();
             frame.setPreferredSize(new Dimension(500, 500));
@@ -110,17 +111,17 @@ public class App {
         JPanel input = new JPanel();
         input.add(new JLabel("Input the slang word: "));
 
-        textField = new JTextField("", 20);
-        textField.addActionListener(new SearchBySlangWordActionListener());
-        input.add(textField);
+        textField1 = new JTextField("", 20);
+        textField1.addActionListener(new SearchBySlangWordActionListener());
+        input.add(textField1);
 
         // Output part
         JPanel output = new JPanel(new BorderLayout());
-        modelTable = new DefaultTableModel();
-        modelTable.addColumn("Slang word");
-        modelTable.addColumn("Definition");
+        modelTable1 = new DefaultTableModel();
+        modelTable1.addColumn("Slang word");
+        modelTable1.addColumn("Definition");
 
-        JTable table = new JTable(modelTable);
+        JTable table = new JTable(modelTable1);
         table.setEnabled(false);
 
         JScrollPane scroll = new JScrollPane(table);
@@ -130,7 +131,7 @@ public class App {
         output.add(table.getTableHeader(), BorderLayout.NORTH);
         output.add(scroll, BorderLayout.CENTER);
 
-        // Add all to card1
+        // Add all to card 1
         cards[1].setLayout(new BoxLayout(cards[1], BoxLayout.Y_AXIS));
         cards[1].add(input);
         cards[1].add(output);
@@ -141,17 +142,17 @@ public class App {
         JPanel input = new JPanel();
         input.add(new JLabel("Input the definition: "));
 
-        textField = new JTextField("", 20);
-        textField.addActionListener(new SearchByDefinitionActionListener());
-        input.add(textField);
+        textField2 = new JTextField("", 20);
+        textField2.addActionListener(new SearchByDefinitionActionListener());
+        input.add(textField2);
 
         // Output part
         JPanel output = new JPanel(new BorderLayout());
-        modelTable = new DefaultTableModel();
-        modelTable.addColumn("Slang word");
-        modelTable.addColumn("Definition");
+        modelTable2 = new DefaultTableModel();
+        modelTable2.addColumn("Slang word");
+        modelTable2.addColumn("Definition");
 
-        JTable table = new JTable(modelTable);
+        JTable table = new JTable(modelTable2);
         table.setEnabled(false);
 
         JScrollPane scroll = new JScrollPane(table);
@@ -161,10 +162,31 @@ public class App {
         output.add(table.getTableHeader(), BorderLayout.NORTH);
         output.add(scroll, BorderLayout.CENTER);
 
-        // Add all to card1
+        // Add all to card 2
         cards[2].setLayout(new BoxLayout(cards[2], BoxLayout.Y_AXIS));
         cards[2].add(input);
         cards[2].add(output);
+    }
+
+    private void createFeature3() {
+        // Output part
+        JPanel output = new JPanel(new BorderLayout());
+        modelTable3 = new DefaultTableModel();
+        modelTable3.addColumn("Slang word");
+        modelTable3.addColumn("Definition");
+
+        JTable table = new JTable(modelTable3);
+        table.setEnabled(false);
+
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(5, 10, 300, 150);
+        scroll.setVisible(true);
+
+        output.add(table.getTableHeader(), BorderLayout.NORTH);
+        output.add(scroll, BorderLayout.CENTER);
+
+        // Add all to card 3
+        cards[3].add(output);
     }
 
     private void createFeatureGUI(int i) {
@@ -175,6 +197,9 @@ public class App {
                 break;
             case 2:
                 createFeature2();
+                break;
+            case 3:
+                createFeature3();
                 break;
             default:
                 break;

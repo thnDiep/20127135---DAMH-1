@@ -2,8 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class Dictionary {
-    public Map<String, Set<String>> dictionary;
-    public Map<String, Set<String>> subDictionary;
+    private Map<String, Set<String>> dictionary;
+    private Map<String, Set<String>> subDictionary;
+
     public Dictionary() {
         this.dictionary = new HashMap<String, Set<String>>();
     }
@@ -69,6 +70,7 @@ public class Dictionary {
                     subDictionary.put(key, entry.getValue());
                 }
             }
+
         }
     }
     public void printMap(Map<String, Set<String>> map) {
@@ -83,5 +85,9 @@ public class Dictionary {
             }
             System.out.println("");
         }
+    }
+
+    public Map<String, Set<String>> getSubDictionary() {
+        return subDictionary;
     }
 }
