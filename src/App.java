@@ -44,6 +44,9 @@ public class App {
             case 5:
                 cards[5] = new Feature5(frame, dictionary);
                 break;
+            case 6:
+                cards[6] = new Feature6(frame, dictionary);
+                break;
             default:
                 cards[i] = new JPanel();
                 break;

@@ -36,12 +36,12 @@ public class Feature5 extends JPanel implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JButton buttonEdit = new JButton("Edit");
+        JButton button = new JButton("Edit");
 
         slangWord.setMaximumSize(new Dimension(900, 24));
         definition.setMaximumSize(new Dimension(900, 24));
 
-        buttonEdit.addActionListener(this);
+        button.addActionListener(this);
 
         panel.add(new JLabel("Enter the slang word you want to edit: "));
         panel.add(slangWord);
@@ -51,7 +51,7 @@ public class Feature5 extends JPanel implements ActionListener {
         panel.add(definition);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        panel.add(buttonEdit);
+        panel.add(button);
 
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         add(Box.createRigidArea(new Dimension(15, 0)));

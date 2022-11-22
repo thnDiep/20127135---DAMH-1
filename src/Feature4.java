@@ -46,12 +46,12 @@ public class Feature4 extends JPanel implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JButton buttonAdd = new JButton("Add");
+        JButton button = new JButton("Add");
 
         slangWord.setMaximumSize(new Dimension(900, 24));
         definition.setMaximumSize(new Dimension(900, 24));
 
-        buttonAdd.addActionListener(this);
+        button.addActionListener(this);
 
         panel.add(new JLabel("Enter the new slang word: "));
         panel.add(slangWord);
@@ -61,7 +61,7 @@ public class Feature4 extends JPanel implements ActionListener {
         panel.add(definition);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        panel.add(buttonAdd);
+        panel.add(button);
 
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         add(Box.createRigidArea(new Dimension(15, 0)));

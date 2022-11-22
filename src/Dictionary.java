@@ -77,16 +77,15 @@ public class Dictionary {
 
     // Feature 4
     public boolean add(String slangWord, String definition, String type) {
-        if(slangWord.trim().length() == 0)
+        if (slangWord.trim().length() == 0)
             return false;
 
         Set<String> definitions;
         String keyExist = "";
 
-        for(String key : dictionary.keySet()) {
-            if(key.toLowerCase().equals(slangWord.toLowerCase())){
+        for (String key : dictionary.keySet()) {
+            if (key.toLowerCase().equals(slangWord.toLowerCase()))
                 keyExist = key;
-            }
         }
 
         if (keyExist.length() != 0) {
@@ -118,10 +117,9 @@ public class Dictionary {
         Set<String> definitions;
         String keyExist = "";
 
-        for(String key : dictionary.keySet()) {
-            if(key.toLowerCase().equals(slangWord.toLowerCase())){
+        for (String key : dictionary.keySet()) {
+            if (key.toLowerCase().equals(slangWord.toLowerCase()))
                 keyExist = key;
-            }
         }
 
         if (keyExist.length() == 0)
@@ -130,6 +128,22 @@ public class Dictionary {
         definitions = dictionary.get(keyExist);
         definitions.clear();
         definitions.add(definition);
+        return true;
+    }
+
+    // Feature 6
+    public boolean delete(String slangWord) {
+        String keyExist = "";
+
+        for (String key : dictionary.keySet()) {
+            if (key.toLowerCase().equals(slangWord.toLowerCase()))
+                keyExist = key;
+        }
+
+        if (keyExist.length() == 0)
+            return false;
+
+        dictionary.remove(keyExist);
         return true;
     }
 
