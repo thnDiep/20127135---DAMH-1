@@ -43,6 +43,7 @@ public class Dictionary {
         }
     }
 
+    // Fearture 1
     public void searchWordBySlangWord(String keyWord){
         this.subDictionary = new HashMap<String, Set<String>>();
 
@@ -52,6 +53,22 @@ public class Dictionary {
            if(key.toLowerCase().indexOf(keyWord.toLowerCase()) == 0){
                subDictionary.put(key, entry.getValue());
            }
+        }
+    }
+
+    // Feature 2
+    public void searchWordByDefinition(String definition){
+        this.subDictionary = new HashMap<String, Set<String>>();
+
+        for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
+            String key = entry.getKey();
+            Set<String> values = entry.getValue();
+
+            for (int i = 0; i < values.size(); i++) {
+                if(values.toArray()[i].toString().toLowerCase().contains(definition.toLowerCase())){
+                    subDictionary.put(key, entry.getValue());
+                }
+            }
         }
     }
     public void printMap(Map<String, Set<String>> map) {

@@ -1,4 +1,3 @@
-import javax.management.ObjectName;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -15,11 +14,7 @@ public class App {
     private JLabel label;
     private JTextField textField;
     private DefaultTableModel modelTable;
-    private JPanel card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
-    private JPanel cards[] = {card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10};
-
-    LinkedList<Object[]> linkedList;
-    Object data[] = new Object[]{"haha", "hihi"};
+    private JPanel cards[];
 
     private final String features[] = {"1. Search by slang word",
             "2. Search by definition",
@@ -44,25 +39,51 @@ public class App {
         }
     }
 
-    class TextFieldActionListener implements ActionListener {
+    class SearchBySlangWordActionListener implements ActionListener {
         public void actionPerformed(ActionEvent ae) {
             dict.searchWordBySlangWord(ae.getActionCommand());
             modelTable.setRowCount(0);
 
             for (Map.Entry<String, Set<String>> entry : dict.subDictionary.entrySet()) {
                 String row[] = new String[2];
+
                 row[0] = entry.getKey();
+                row[1] = "";
 
                 for (int i = 0; i < entry.getValue().size(); i++) {
-                    row[1] = (String) entry.getValue().toArray()[i];
+                    row[1] += (String) entry.getValue().toArray()[i];
+
                     if (i < entry.getValue().size() - 1) {
-                        row[1].concat(", ");
+                        row[1] += ", ";
                     }
                 }
 
-                data = new Object[]{row[0], row[1]};
-                linkedList.add(data);
-                System.out.println(row[0]);
+                modelTable.insertRow(modelTable.getRowCount(), new Object[]{row[0], row[1]});
+            }
+            frame.pack();
+            frame.setPreferredSize(new Dimension(500, 500));
+        }
+    }
+
+    class SearchByDefinitionActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent ae) {
+            dict.searchWordByDefinition(ae.getActionCommand());
+            modelTable.setRowCount(0);
+
+            for (Map.Entry<String, Set<String>> entry : dict.subDictionary.entrySet()) {
+                String row[] = new String[2];
+
+                row[0] = entry.getKey();
+                row[1] = "";
+
+                for (int i = 0; i < entry.getValue().size(); i++) {
+                    row[1] += (String) entry.getValue().toArray()[i];
+
+                    if (i < entry.getValue().size() - 1) {
+                        row[1] += ", ";
+                    }
+                }
+
                 modelTable.insertRow(modelTable.getRowCount(), new Object[]{row[0], row[1]});
             }
             frame.pack();
@@ -84,54 +105,88 @@ public class App {
         return menuBar;
     }
 
-    private void createFeature1GUI(int i) {
-        this.cards[i] = new JPanel();
+    private void createFeature1() {
+        // Input part
+        JPanel input = new JPanel();
+        input.add(new JLabel("Input the slang word: "));
 
-        if(i == 1){
-            this.cards[i].setLayout(new BoxLayout(this.cards[i], BoxLayout.Y_AXIS));
+        textField = new JTextField("", 20);
+        textField.addActionListener(new SearchBySlangWordActionListener());
+        input.add(textField);
 
-            JPanel input = new JPanel();
-            JPanel output = new JPanel(new BorderLayout());
+        // Output part
+        JPanel output = new JPanel(new BorderLayout());
+        modelTable = new DefaultTableModel();
+        modelTable.addColumn("Slang word");
+        modelTable.addColumn("Definition");
 
-            label = new JLabel("Input the slang word: ");
+        JTable table = new JTable(modelTable);
+        table.setEnabled(false);
 
-            textField = new JTextField("", 20);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(5, 10, 300, 150);
+        scroll.setVisible(true);
 
-            linkedList = new LinkedList<Object[]>();
-            textField.addActionListener(new TextFieldActionListener());
+        output.add(table.getTableHeader(), BorderLayout.NORTH);
+        output.add(scroll, BorderLayout.CENTER);
 
-            modelTable = new DefaultTableModel();
-            modelTable.addColumn("Slang word");
-            modelTable.addColumn("Definition");
+        // Add all to card1
+        cards[1].setLayout(new BoxLayout(cards[1], BoxLayout.Y_AXIS));
+        cards[1].add(input);
+        cards[1].add(output);
+    }
 
-            JTable table = new JTable(modelTable);
-            table.setEnabled(false);
+    private void createFeature2() {
+        // Input part
+        JPanel input = new JPanel();
+        input.add(new JLabel("Input the definition: "));
 
-            JScrollPane scroll = new JScrollPane(table);
-            scroll.setBounds(5, 10, 300, 150);
-            scroll.setVisible(true);
+        textField = new JTextField("", 20);
+        textField.addActionListener(new SearchByDefinitionActionListener());
+        input.add(textField);
 
-            input.add(label);
-            input.add(textField);
+        // Output part
+        JPanel output = new JPanel(new BorderLayout());
+        modelTable = new DefaultTableModel();
+        modelTable.addColumn("Slang word");
+        modelTable.addColumn("Definition");
 
-            output.add(table.getTableHeader(), BorderLayout.NORTH);
-            output.add(scroll, BorderLayout.CENTER);
+        JTable table = new JTable(modelTable);
+        table.setEnabled(false);
 
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(5, 10, 300, 150);
+        scroll.setVisible(true);
 
-            cards[i].add(input);
-            cards[i].add(output);
+        output.add(table.getTableHeader(), BorderLayout.NORTH);
+        output.add(scroll, BorderLayout.CENTER);
+
+        // Add all to card1
+        cards[2].setLayout(new BoxLayout(cards[2], BoxLayout.Y_AXIS));
+        cards[2].add(input);
+        cards[2].add(output);
+    }
+
+    private void createFeatureGUI(int i) {
+        cards[i] = new JPanel();
+        switch (i) {
+            case 1:
+                createFeature1();
+                break;
+            case 2:
+                createFeature2();
+                break;
+            default:
+                break;
         }
-
     }
 
     public void addComponentToPane(Container pane) {
         content = new JPanel(new CardLayout());
-//        content = new JPanel();
-//        createFeature1GUI(1);
-//        content.add(cards[1]);
+        cards = new JPanel[11];
 
         for (int i = 0; i < cards.length; i++) {
-            createFeature1GUI(i);
+            createFeatureGUI(i);
             if (i == 0)
                 content.add(cards[i], "START");
             else
