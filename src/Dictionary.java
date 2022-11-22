@@ -4,9 +4,11 @@ import java.util.*;
 public class Dictionary {
     private Map<String, Set<String>> dictionary;
     private Map<String, Set<String>> subDictionary;
+    private String[] options;
 
     public Dictionary() {
         this.dictionary = new HashMap<String, Set<String>>();
+        this.options = new String[]{"Overwrite", "Duplicate"};
     }
 
     public void readFile(String fileName) throws IOException {
@@ -74,15 +76,31 @@ public class Dictionary {
     }
 
     // Feature 4
-    public boolean add(String slangWord, String definition, boolean isForce) {
+    public boolean add(String slangWord, String definition, String type) {
         Set<String> definitions;
+        String keyExist = "";
 
-        if (dictionary.containsKey(slangWord)) {
-            if (!isForce)
+        for(String key : dictionary.keySet()) {
+            if(key.toLowerCase().equals(slangWord.toLowerCase())){
+                keyExist = key;
+            }
+        }
+
+        if (keyExist.length() != 0) {
+            if (type == null)
                 return false;
 
-            definitions = dictionary.get(slangWord);
-            definitions.add(definition);
+            if (type == options[0]) { // Overwrite
+                definitions = dictionary.get(keyExist);
+                definitions.clear();
+                definitions.add(definition);
+            } else if (type == options[1]) { // Duplicate
+                definitions = dictionary.get(keyExist);
+                definitions.add(definition);
+            } else {
+                System.out.println("Error type.");
+                return false;
+            }
         } else {
             definitions = new HashSet<String>();
             definitions.add(definition);
@@ -107,5 +125,9 @@ public class Dictionary {
 
     public Map<String, Set<String>> getSubDictionary() {
         return subDictionary;
+    }
+
+    public String[] getOptions() {
+        return options;
     }
 }
