@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Dictionary {
-    Map<String, Set<String>> dictionary;
-
+    public Map<String, Set<String>> dictionary;
+    public Map<String, Set<String>> subDictionary;
     public Dictionary() {
         this.dictionary = new HashMap<String, Set<String>>();
     }
@@ -43,8 +43,19 @@ public class Dictionary {
         }
     }
 
-    public void printMap() {
+    public void searchWordBySlangWord(String keyWord){
+        this.subDictionary = new HashMap<String, Set<String>>();
+
         for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
+           String key = entry.getKey();
+
+           if(key.toLowerCase().indexOf(keyWord.toLowerCase()) == 0){
+               subDictionary.put(key, entry.getValue());
+           }
+        }
+    }
+    public void printMap(Map<String, Set<String>> map) {
+        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey());
             System.out.print("Values: ");
             for(int i = 0; i < entry.getValue().size(); i++){
