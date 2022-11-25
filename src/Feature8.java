@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class Feature8 extends JPanel implements ActionListener {
-    private JFrame frame;
     private Dictionary dictionary;
     private JLabel keyLabel;
     private JLabel valueLabel;
@@ -24,8 +23,7 @@ public class Feature8 extends JPanel implements ActionListener {
         valueLabel.setText("<html>" + text + "</html>");
     }
 
-    public Feature8(JFrame frame, Dictionary dictionary) {
-        this.frame = frame;
+    public Feature8(Dictionary dictionary) {
         this.dictionary = dictionary;
         this.keyLabel = new JLabel("", SwingConstants.CENTER);
         this.valueLabel = new JLabel("", SwingConstants.CENTER);

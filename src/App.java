@@ -51,7 +51,10 @@ public class App {
                 cards[6] = new Feature6(frame, dictionary);
                 break;
             case 8:
-                cards[8] = new Feature8(frame, dictionary);
+                cards[8] = new Feature8(dictionary);
+                break;
+            case 9:
+                cards[9] = new Feature9(dictionary);
                 break;
             default:
                 cards[i] = new JPanel();
@@ -84,8 +87,8 @@ public class App {
 
         frame.pack();
         frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(500, 500));
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
