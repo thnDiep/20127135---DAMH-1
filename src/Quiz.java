@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Quiz {
-    private Dictionary dictionary;
+    private final Dictionary dictionary;
     private ArrayList<String> questions;
     private ArrayList<String> answers;
     private Map<String, ArrayList<String>> quiz;
@@ -69,6 +69,20 @@ public class Quiz {
         }
         wrongAnswer++;
         return false;
+    }
+
+    public static ArrayList<Integer> randomNumbers(int length) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        Random random = new Random();
+
+        while (numbers.size() < length) {
+            int randomNumber = random.nextInt(length);
+            if (!numbers.contains(randomNumber)) {
+                numbers.add(randomNumber);
+            }
+        }
+
+        return numbers;
     }
 
     public int getCorrectAnswer() {

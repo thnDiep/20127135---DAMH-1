@@ -1,21 +1,18 @@
-import com.sun.source.tree.ArrayAccessTree;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class Menu extends JMenuBar implements ActionListener {
-    private JFrame frame;
-    private Dictionary dictionary;
-    private JPanel content;
-    private JMenu menu;
+    private final Dictionary dictionary;
+    private final JPanel content;
+    private final JMenu menu;
 
     public void actionPerformed(ActionEvent ae) {
         CardLayout cardLayout = (CardLayout) content.getLayout();
 
         if (ae.getActionCommand().equals(App.FEATURES[App.INDEX_RESET])) { // reset feature
-            int isConfirm = JOptionPane.showConfirmDialog(frame,
+            int isConfirm = JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to reset to the original dictionary?",
                     "Confirm Dialog",
                     JOptionPane.YES_NO_OPTION,
@@ -32,11 +29,10 @@ class Menu extends JMenuBar implements ActionListener {
         }
     }
 
-    public Menu(JFrame frame, Dictionary dictionary, JPanel content) {
-        this.frame = frame;
+    public Menu(Dictionary dictionary, JPanel content) {
         this.dictionary = dictionary;
         this.content = content;
-        this.menu = new JMenu("Menu");
+        this.menu = new JMenu(App.CONSTRAINT_CARD_MENU);
 
         for (String menuItemName : App.FEATURES) {
             JMenuItem menuItem = new JMenuItem(menuItemName);
@@ -44,5 +40,6 @@ class Menu extends JMenuBar implements ActionListener {
             this.menu.add(menuItem);
         }
         add(menu);
+        setPreferredSize(new Dimension(0, 30));
     }
 }

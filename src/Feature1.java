@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +7,7 @@ import java.util.Set;
 
 public class Feature1 extends JPanel implements ActionListener {
     private final Dictionary dictionary;
-    private final DefaultTableModel tableModelHistory;
-    private final CustomTableModel tableModel;
+    private final CustomTableModel tableModel, tableModelHistory;
 
     public void actionPerformed(ActionEvent ae) {
         dictionary.searchWordBySlangWord(ae.getActionCommand());
@@ -34,25 +32,28 @@ public class Feature1 extends JPanel implements ActionListener {
         }
     }
 
-    public Feature1(Dictionary dictionary, DefaultTableModel tableModelHistory) {
+    public Feature1(Dictionary dictionary, CustomTableModel tableModelHistory) {
         this.dictionary = dictionary;
         this.tableModelHistory = tableModelHistory;
         this.tableModel = new CustomTableModel();
 
         // Input part
-        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JTextField textField = new JTextField("", 20);
+        JLabel label = new JLabel("Enter the slang word: ");
+        label.setFont(App.SMALL_FONT);
+        JTextField textField = new JTextField("");
+        textField.setPreferredSize(new Dimension(App.TEXTFIELD_WIDTH, App.TEXTFIELD_HEIGH));
         textField.addActionListener(this);
 
-        inputPanel.add(new JLabel("Enter the slang word: "));
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        inputPanel.add(label);
         inputPanel.add(textField);
 
         // Output part
-        JPanel outputPanel = new JPanel(new BorderLayout());
         CustomTable table = new CustomTable(tableModel);
         JScrollPane scroll = new JScrollPane(table);
         scroll.setVisible(true);
 
+        JPanel outputPanel = new JPanel(new BorderLayout());
         outputPanel.add(table.getTableHeader(), BorderLayout.NORTH);
         outputPanel.add(scroll, BorderLayout.CENTER);
 

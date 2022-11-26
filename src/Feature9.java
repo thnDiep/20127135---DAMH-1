@@ -12,7 +12,7 @@ public class Feature9 extends JPanel implements ActionListener {
     private int index;
 
     private JPanel quizPanel, startPanel;
-    private JButton startBtn;
+    private JButton startBtn, nextButton;
     private JLabel slangWordLabel, numQuestionLabel, numCorrectLabel, numWrongLabel;
     ButtonGroup answersGroup;
     private JRadioButton rBtnA, rBtnB, rBtnC, rBtnD;
@@ -20,8 +20,9 @@ public class Feature9 extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == startBtn) {
             startQuiz();
-        } else {
+        } else if (ae.getSource() == nextButton) {
             index++;
+
             if (rBtnA.isSelected()) {
                 myQuiz.checkAnswer(question, rBtnA.getText());
             }
@@ -35,6 +36,7 @@ public class Feature9 extends JPanel implements ActionListener {
                 myQuiz.checkAnswer(question, rBtnD.getText());
             }
             updateQuestion();
+            nextButton.setEnabled(false);
 
             // Reset new quiz
             if (index >= myQuiz.getNumberQuestion()) {
@@ -53,6 +55,10 @@ public class Feature9 extends JPanel implements ActionListener {
                     exitQuiz();
                 }
             }
+        }
+        else {
+            if(rBtnA.isSelected() || rBtnB.isSelected() || rBtnC.isSelected() || rBtnD.isSelected())
+                nextButton.setEnabled(true);
         }
     }
 
@@ -75,16 +81,21 @@ public class Feature9 extends JPanel implements ActionListener {
     }
 
     public void createStartGUI(JPanel pane){
+        // Button
         startBtn = new JButton("START QUIZ");
-        startBtn.addActionListener(this);
+        startBtn.setFont(App.LARGE_FONT);
+        startBtn.setPreferredSize(new Dimension(250, 60));
+        startBtn.setMaximumSize(new Dimension(250, 60));
         startBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        startBtn.setPreferredSize(new Dimension(150, 50));
-        startBtn.setMaximumSize(new Dimension(150, 50));
+        startBtn.addActionListener(this);
 
-        JLabel label = new JLabel("The QUIZ displays 1 random slang word\n with 4 answers for you chooses");
-        label.setFont(new Font("Roboto", Font.PLAIN, 16));
+        // Label
+        JLabel label = new JLabel("The QUIZ displays 1 random slang word" +
+                "\n with 4 answers for you chooses");
+        label.setFont(App.SMALL_FONT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Card 9 (1)
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         pane.add(startBtn);
         pane.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -93,22 +104,34 @@ public class Feature9 extends JPanel implements ActionListener {
 
     public void createQuizGUI(JPanel pane) {
         // Question (PAGE_START)
-        slangWordLabel = new JLabel("", SwingConstants.CENTER);
-        slangWordLabel.setFont(new Font("Roboto", Font.BOLD, 40));
-        slangWordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel questionLabel = new JLabel("Select definition of ");
+        slangWordLabel = new JLabel();
 
-        JLabel label = new JLabel("Select definition of ");
-        label.setFont(new Font("Roboto", Font.PLAIN, 30));
+        questionLabel.setFont(App.LARGE_FONT);
+        slangWordLabel.setFont(App.HEADING_FONT);
 
         JPanel questionPanel = new JPanel(new FlowLayout());
-        questionPanel.add(label);
+        questionPanel.add(questionLabel);
         questionPanel.add(slangWordLabel);
 
         // Answer (CENTER - 1)
+        JLabel answerLabel = new JLabel("The answer: ");
+        answerLabel.setFont(App.LARGE_FONT);
+
         rBtnA = new JRadioButton();
         rBtnB = new JRadioButton();
         rBtnC = new JRadioButton();
         rBtnD = new JRadioButton();
+
+        rBtnA.setFont(App.SMALL_FONT);
+        rBtnB.setFont(App.SMALL_FONT);
+        rBtnC.setFont(App.SMALL_FONT);
+        rBtnD.setFont(App.SMALL_FONT);
+
+        rBtnA.addActionListener(this);
+        rBtnB.addActionListener(this);
+        rBtnC.addActionListener(this);
+        rBtnD.addActionListener(this);
 
         answersGroup = new ButtonGroup();
         answersGroup.add(rBtnA);
@@ -117,41 +140,57 @@ public class Feature9 extends JPanel implements ActionListener {
         answersGroup.add(rBtnD);
 
         // Button (CENTER - 2)
-        JButton button = new JButton("Next");
-        button.setPreferredSize(new Dimension(0, 50));
-        button.addActionListener(this);
+        nextButton = new JButton("Next");
+        nextButton.setFont(App.LARGE_FONT);
+        nextButton.addActionListener(this);
+        nextButton.setEnabled(false);
 
         // CENTER
         JPanel answerPanel = new JPanel();
         answerPanel.setLayout(new BoxLayout(answerPanel, BoxLayout.Y_AXIS));
-        answerPanel.add(rBtnA);
-        answerPanel.add(rBtnB);
-        answerPanel.add(rBtnC);
-        answerPanel.add(rBtnD);
+
+        answerPanel.add(answerLabel);
+
         answerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        answerPanel.add(button);
+        answerPanel.add(rBtnA);
+
+        answerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        answerPanel.add(rBtnB);
+
+        answerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        answerPanel.add(rBtnC);
+
+        answerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        answerPanel.add(rBtnD);
+
+        answerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        answerPanel.add(nextButton);
 
         // Align left (LINE_START)
         JPanel leftAlign = new JPanel();
-        leftAlign.setPreferredSize(new Dimension(10, 0));
+        leftAlign.setPreferredSize(new Dimension(50, 0));
 
         // Status (PAGE_END)
         numQuestionLabel = new JLabel();
         numCorrectLabel = new JLabel();
         numWrongLabel = new JLabel();
+        numQuestionLabel.setFont(App.SMALL_FONT);
+        numCorrectLabel.setFont(App.SMALL_FONT);
+        numWrongLabel.setFont(App.SMALL_FONT);
 
         JPanel statusPanel = new JPanel();
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
         statusPanel.setPreferredSize(new Dimension(0, 50));
 
-        statusPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+        statusPanel.add(Box.createHorizontalGlue());
         statusPanel.add(numQuestionLabel);
         statusPanel.add(Box.createRigidArea(new Dimension(65, 0)));
         statusPanel.add(numCorrectLabel);
         statusPanel.add(Box.createRigidArea(new Dimension(65, 0)));
         statusPanel.add(numWrongLabel);
+        statusPanel.add(Box.createHorizontalGlue());
 
-        // Container
+        // Card 9 (2)
         pane.setLayout(new BorderLayout());
         pane.add(questionPanel, BorderLayout.PAGE_START);
         pane.add(leftAlign, BorderLayout.LINE_START);
@@ -167,7 +206,7 @@ public class Feature9 extends JPanel implements ActionListener {
             answer = quiz.get(question);
 
             slangWordLabel.setText(question);
-            ArrayList<Integer> randomNumbers = randomNumbers(4);
+            ArrayList<Integer> randomNumbers = Quiz.randomNumbers(4);
             rBtnA.setText(answer.get(randomNumbers.get(0)));
             rBtnB.setText(answer.get(randomNumbers.get(1)));
             rBtnC.setText(answer.get(randomNumbers.get(2)));
@@ -178,20 +217,6 @@ public class Feature9 extends JPanel implements ActionListener {
 
         numCorrectLabel.setText("Correct answer:   " + myQuiz.getCorrectAnswer());
         numWrongLabel.setText("Wrong answer:   " + myQuiz.getWrongAnswer());
-    }
-
-    public ArrayList<Integer> randomNumbers(int length) {
-        ArrayList<Integer> numbers = new ArrayList<>();
-        Random random = new Random();
-
-        while (numbers.size() < length) {
-            int randomNumber = random.nextInt(length);
-            if (!numbers.contains(randomNumber)) {
-                numbers.add(randomNumber);
-            }
-        }
-
-        return numbers;
     }
 
     public void startQuiz() {

@@ -2,82 +2,24 @@ import java.io.*;
 import java.util.*;
 
 public class Dictionary {
-    private final String originalDicionaryFileName = "original-slang.txt";
-    private final String dictionaryFileName = "slang.txt";
+    private static final String ORIGINAL_DICTIONARY_FILENAME = "original-slang.txt";
+    private static final String DICTIONARY_FILENAME = "slang.txt";
+    private String[] options = {"Overwrite", "Duplicate"};
 
     private Map<String, Set<String>> dictionary;
-    private Map<String, Set<String>> subDictionary;
-    private String[] options;
+    private Map<String, Set<String>> subDictionary; // save slang words searched
 
     public Dictionary() {
         this.dictionary = new HashMap<String, Set<String>>();
-        this.options = new String[]{"Overwrite", "Duplicate"};
 
         try {
-            this.readFile(dictionaryFileName);
+            this.readFile(DICTIONARY_FILENAME);
         } catch (IOException exc) {
-            System.out.println("Read file '" + dictionaryFileName + "' error");
+            System.out.println("Read file '" + DICTIONARY_FILENAME + "' error");
         }
     }
 
-    public void readFile(String fileName) throws IOException {
-        this.dictionary.clear();
-
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "utf8"));
-        } catch (FileNotFoundException exc) {
-            System.out.println("File Not Found");
-            return;
-        }
-
-        String previousKey = "";
-        while (true) {
-            String str = br.readLine();
-            if (str == null)
-                break;
-
-            String[] keyValues = str.split("`");
-
-            if (keyValues.length == 2) {
-                String[] values = keyValues[1].split("\\| ");
-                Set<String> valueSet = new HashSet<String>(values.length);
-
-                for (String value : values) {
-                    valueSet.add(value);
-                }
-
-                dictionary.put(keyValues[0], valueSet);
-                previousKey = keyValues[0];
-            } else {
-                Set<String> valueSet = dictionary.get(previousKey);
-                valueSet.add(keyValues[0]);
-                dictionary.put(previousKey, valueSet);
-            }
-        }
-        br.close();
-    }
-
-    public void writeFile(String fileName) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf8"));
-
-        for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
-            bw.write(entry.getKey() + "`");
-
-            Set<String> values = entry.getValue();
-            for (int i = 0; i < values.size(); i++) {
-                bw.write(values.toArray()[i].toString());
-                if (i < entry.getValue().size() - 1) {
-                    bw.write("| ");
-                }
-            }
-            bw.write("\n");
-        }
-        bw.flush();
-        bw.close();
-    }
-
-    // Fearture 1
+    // Feature 1
     public void searchWordBySlangWord(String keyWord) {
         subDictionary = new HashMap<String, Set<String>>();
 
@@ -178,27 +120,25 @@ public class Dictionary {
         return true;
     }
 
-    // Support for feature 4, 5, 6
+    // Support for feature 4, 5, 6 (save new dictionary into file)
     public boolean save() {
         try {
-            writeFile(dictionaryFileName);
+            writeFile(DICTIONARY_FILENAME);
         } catch (IOException exc) {
-            System.out.println("Write file '" + dictionaryFileName + "' error");
+            System.out.println("Write file '" + DICTIONARY_FILENAME + "' error");
             return false;
         }
-
         return true;
     }
 
     // Feature 7
     public boolean reset() {
         try {
-            readFile(originalDicionaryFileName);
+            readFile(ORIGINAL_DICTIONARY_FILENAME);
         } catch (IOException exc) {
-            System.out.println("Read file '" + originalDicionaryFileName + "' error");
+            System.out.println("Read file '" + ORIGINAL_DICTIONARY_FILENAME + "' error");
             return false;
         }
-
         return true;
     }
 
@@ -209,18 +149,62 @@ public class Dictionary {
         String randomKey = key[random.nextInt(key.length)].toString();
         return randomKey;
     }
-    public void printMap(Map<String, Set<String>> map) {
-        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
-            System.out.println("Key: " + entry.getKey());
-            System.out.print("Values: ");
-            for (int i = 0; i < entry.getValue().size(); i++) {
-                System.out.print(entry.getValue().toArray()[i]);
+
+    public void readFile(String fileName) throws IOException {
+        this.dictionary.clear();
+
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "utf8"));
+        } catch (FileNotFoundException exc) {
+            System.out.println("File Not Found");
+            return;
+        }
+
+        String previousKey = "";
+        while (true) {
+            String str = br.readLine();
+            if (str == null)
+                break;
+
+            String[] keyValues = str.split("`");
+
+            if (keyValues.length == 2) {
+                String[] values = keyValues[1].split("\\| ");
+                Set<String> valueSet = new HashSet<String>(values.length);
+
+                for (String value : values) {
+                    valueSet.add(value);
+                }
+
+                dictionary.put(keyValues[0], valueSet);
+                previousKey = keyValues[0];
+            } else {
+                Set<String> valueSet = dictionary.get(previousKey);
+                valueSet.add(keyValues[0]);
+                dictionary.put(previousKey, valueSet);
+            }
+        }
+        br.close();
+    }
+
+    public void writeFile(String fileName) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf8"));
+
+        for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
+            bw.write(entry.getKey() + "`");
+
+            Set<String> values = entry.getValue();
+            for (int i = 0; i < values.size(); i++) {
+                bw.write(values.toArray()[i].toString());
                 if (i < entry.getValue().size() - 1) {
-                    System.out.print(", ");
+                    bw.write("| ");
                 }
             }
-            System.out.println("");
+            bw.write("\n");
         }
+        bw.flush();
+        bw.close();
     }
 
     public Map<String, Set<String>> getDictionary() {
