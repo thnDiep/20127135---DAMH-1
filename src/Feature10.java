@@ -2,9 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
 
-public class Feature9 extends JPanel implements ActionListener {
+public class Feature10 extends JPanel implements ActionListener {
     private final Quiz myQuiz;
     private Map<String, ArrayList<String>> quiz;
     private String question;
@@ -62,7 +63,7 @@ public class Feature9 extends JPanel implements ActionListener {
         }
     }
 
-    public Feature9(Dictionary dictionary) {
+    public Feature10(Dictionary dictionary) {
         myQuiz = new Quiz(dictionary);
         quiz = myQuiz.createQuizForFeature9(10);
 
@@ -90,8 +91,8 @@ public class Feature9 extends JPanel implements ActionListener {
         startBtn.addActionListener(this);
 
         // Label
-        JLabel label = new JLabel("The QUIZ displays 1 random slang word" +
-                "\n with 4 answers (definition) for you chooses");
+        JLabel label = new JLabel("The QUIZ displays 1 random definition" +
+                "\n with 4 answers (slang word) for you chooses");
         label.setFont(App.SMALL_FONT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -104,7 +105,7 @@ public class Feature9 extends JPanel implements ActionListener {
 
     public void createQuizGUI(JPanel pane) {
         // Question (PAGE_START)
-        JLabel questionLabel = new JLabel("Select definition of ");
+        JLabel questionLabel = new JLabel("Select slang word of ");
         slangWordLabel = new JLabel();
 
         questionLabel.setFont(App.LARGE_FONT);
@@ -112,6 +113,7 @@ public class Feature9 extends JPanel implements ActionListener {
 
         JPanel questionPanel = new JPanel(new FlowLayout());
         questionPanel.setPreferredSize(new Dimension(0, 100));
+
         questionPanel.add(questionLabel);
         questionPanel.add(slangWordLabel);
 
@@ -224,7 +226,7 @@ public class Feature9 extends JPanel implements ActionListener {
         startPanel.setVisible(false);
         quizPanel.setVisible(true);
         index = 0;
-        quiz = myQuiz.createQuizForFeature9(10);
+        quiz = myQuiz.createQuizForFeature10(10);
         updateQuestion();
     }
 

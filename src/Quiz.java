@@ -2,23 +2,23 @@ import java.util.*;
 
 public class Quiz {
     private final Dictionary dictionary;
-    private ArrayList<String> questions;
-    private ArrayList<String> answers;
+    private ArrayList<String> slangWordL;
+    private ArrayList<String> definitionL;
     private Map<String, ArrayList<String>> quiz;
     private int correctAnswer, wrongAnswer, numberQuestion;
 
     public Quiz(Dictionary dictionary) {
         this.dictionary = dictionary;
-        this.questions = new ArrayList<String>();
-        this.answers = new ArrayList<String>();
+        this.slangWordL = new ArrayList<String>();
+        this.definitionL = new ArrayList<String>();
         this.quiz = new HashMap<String, ArrayList<String>>();
 
         for (Map.Entry<String, Set<String>> entry : this.dictionary.getDictionary().entrySet()) {
-            this.questions.add(entry.getKey());
+            this.slangWordL.add(entry.getKey());
             Set<String> values = entry.getValue();
 
             for (int i = 0; i < values.size(); i++) {
-                this.answers.add(values.toArray()[0].toString());
+                this.definitionL.add(values.toArray()[0].toString());
             }
         }
     }
@@ -32,10 +32,10 @@ public class Quiz {
         for (int i = 0; i < this.numberQuestion; i++) {
             Random random = new Random();
 
-            // random question
-            String question = this.questions.get(random.nextInt(this.questions.size()));
+            // random question (slang word)
+            String question = this.slangWordL.get(random.nextInt(this.slangWordL.size()));
             while(quiz.containsKey(question)){
-                question = this.questions.get(random.nextInt(this.questions.size()));
+                question = this.slangWordL.get(random.nextInt(this.slangWordL.size()));
             }
 
             // random 1 correct answer (if this slang word has many definitions)
@@ -43,20 +43,55 @@ public class Quiz {
             String correctAnswer = correctAnswers.toArray()[random.nextInt(correctAnswers.size())].toString();
 
             // The correct answer always has index 0 in array list
-            ArrayList<String> answer = new ArrayList<String>(4);
-            answer.add(0, correctAnswer);
+            ArrayList<String> answers = new ArrayList<String>(4);
+            answers.add(0, correctAnswer);
 
             // random other answers
             for (int j = 1; j < 4; j++) {
-                String wrongAnswer = this.answers.get(random.nextInt(this.answers.size()));
-                while (correctAnswer.contains(wrongAnswer)) {
-                    wrongAnswer = this.answers.get(random.nextInt(this.answers.size()));
+                String wrongAnswer = this.definitionL.get(random.nextInt(this.definitionL.size()));
+                while (answers.contains(wrongAnswer)) {
+                    wrongAnswer = this.definitionL.get(random.nextInt(this.definitionL.size()));
                 }
 
-                answer.add(j, wrongAnswer);
+                answers.add(j, wrongAnswer);
             }
 
-            quiz.put(question, answer);
+            quiz.put(question, answers);
+        }
+
+        return quiz;
+    }
+
+    public Map<String, ArrayList<String>> createQuizForFeature10(int numberQ){
+        quiz.clear();
+        numberQuestion = numberQ;
+        correctAnswer = 0;
+        wrongAnswer = 0;
+
+        for (int i = 0; i < this.numberQuestion; i++) {
+            Random random = new Random();
+
+            // random slang word
+            String slangWord = this.slangWordL.get(random.nextInt(this.slangWordL.size()));
+
+            // The correct answer always has index 0 in array list
+            ArrayList<String> answers = new ArrayList<String>(4);
+            answers.add(0, slangWord);
+
+            // random other answers
+            for (int j = 1; j < 4; j++) {
+                String wrongAnswer = this.slangWordL.get(random.nextInt(this.slangWordL.size()));
+                while (answers.contains(wrongAnswer)) {
+                    wrongAnswer = this.slangWordL.get(random.nextInt(this.slangWordL.size()));
+                }
+
+                answers.add(j, wrongAnswer);
+            }
+
+            // random question
+            String questions = this.dictionary.getDictionary().get(slangWord).toArray()[0].toString();
+
+            quiz.put(questions, answers);
         }
 
         return quiz;
