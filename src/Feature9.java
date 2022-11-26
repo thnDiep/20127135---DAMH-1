@@ -11,7 +11,7 @@ public class Feature9 extends JPanel implements ActionListener {
     private ArrayList<String> answer;
     private int index;
 
-    private JPanel panel;
+    private JPanel quizPanel, startPanel;
     private JButton startBtn;
     private JLabel slangWordLabel, numQuestionLabel, numCorrectLabel, numWrongLabel;
     ButtonGroup answersGroup;
@@ -60,28 +60,49 @@ public class Feature9 extends JPanel implements ActionListener {
         myQuiz = new Quiz(dictionary);
         quiz = myQuiz.createQuizForFeature9(10);
 
+        startPanel = new JPanel();
+        createStartGUI(startPanel);
+
+        quizPanel = new JPanel();
+        createQuizGUI(quizPanel);
+        quizPanel.setVisible(false);
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(Box.createVerticalGlue());
+        add(startPanel);
+        add(quizPanel);
+        add(Box.createVerticalGlue());
+    }
+
+    public void createStartGUI(JPanel pane){
         startBtn = new JButton("START QUIZ");
         startBtn.addActionListener(this);
         startBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         startBtn.setPreferredSize(new Dimension(150, 50));
         startBtn.setMaximumSize(new Dimension(150, 50));
 
-        panel = new JPanel();
-        createQuizGUI(panel);
-        panel.setVisible(false);
+        JLabel label = new JLabel("The QUIZ displays 1 random slang word\n with 4 answers for you chooses");
+        label.setFont(new Font("Roboto", Font.PLAIN, 16));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(Box.createVerticalGlue());
-        add(startBtn);
-        add(panel);
-        add(Box.createVerticalGlue());
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+        pane.add(startBtn);
+        pane.add(Box.createRigidArea(new Dimension(0, 20)));
+        pane.add(label);
     }
 
     public void createQuizGUI(JPanel pane) {
         // Question (PAGE_START)
         slangWordLabel = new JLabel("", SwingConstants.CENTER);
-        slangWordLabel.setFont(new Font("Roboto", Font.PLAIN, 64));
+        slangWordLabel.setFont(new Font("Roboto", Font.BOLD, 40));
         slangWordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel label = new JLabel("Select definition of ");
+        label.setFont(new Font("Roboto", Font.PLAIN, 30));
+
+        JPanel questionPanel = new JPanel(new FlowLayout());
+        questionPanel.add(label);
+        questionPanel.add(slangWordLabel);
 
         // Answer (CENTER - 1)
         rBtnA = new JRadioButton();
@@ -101,14 +122,14 @@ public class Feature9 extends JPanel implements ActionListener {
         button.addActionListener(this);
 
         // CENTER
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.add(rBtnA);
-        centerPanel.add(rBtnB);
-        centerPanel.add(rBtnC);
-        centerPanel.add(rBtnD);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        centerPanel.add(button);
+        JPanel answerPanel = new JPanel();
+        answerPanel.setLayout(new BoxLayout(answerPanel, BoxLayout.Y_AXIS));
+        answerPanel.add(rBtnA);
+        answerPanel.add(rBtnB);
+        answerPanel.add(rBtnC);
+        answerPanel.add(rBtnD);
+        answerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        answerPanel.add(button);
 
         // Align left (LINE_START)
         JPanel leftAlign = new JPanel();
@@ -132,9 +153,9 @@ public class Feature9 extends JPanel implements ActionListener {
 
         // Container
         pane.setLayout(new BorderLayout());
-        pane.add(slangWordLabel, BorderLayout.PAGE_START);
+        pane.add(questionPanel, BorderLayout.PAGE_START);
         pane.add(leftAlign, BorderLayout.LINE_START);
-        pane.add(centerPanel, BorderLayout.CENTER);
+        pane.add(answerPanel, BorderLayout.CENTER);
         pane.add(statusPanel, BorderLayout.PAGE_END);
     }
 
@@ -174,15 +195,15 @@ public class Feature9 extends JPanel implements ActionListener {
     }
 
     public void startQuiz() {
-        startBtn.setVisible(false);
-        panel.setVisible(true);
+        startPanel.setVisible(false);
+        quizPanel.setVisible(true);
         index = 0;
         quiz = myQuiz.createQuizForFeature9(10);
         updateQuestion();
     }
 
     public void exitQuiz() {
-        startBtn.setVisible(true);
-        panel.setVisible(false);
+        startPanel.setVisible(true);
+        quizPanel.setVisible(false);
     }
 }

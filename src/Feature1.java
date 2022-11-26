@@ -7,8 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Feature1 extends JPanel implements ActionListener {
-    private Dictionary dictionary;
-    private DefaultTableModel tableModel, tableModelHistory;
+    private final Dictionary dictionary;
+    private final DefaultTableModel tableModelHistory;
+    private final CustomTableModel tableModel;
 
     public void actionPerformed(ActionEvent ae) {
         dictionary.searchWordBySlangWord(ae.getActionCommand());
@@ -36,34 +37,28 @@ public class Feature1 extends JPanel implements ActionListener {
     public Feature1(Dictionary dictionary, DefaultTableModel tableModelHistory) {
         this.dictionary = dictionary;
         this.tableModelHistory = tableModelHistory;
-        this.tableModel = new DefaultTableModel();
+        this.tableModel = new CustomTableModel();
 
         // Input part
-        JPanel input = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        input.add(new JLabel("Enter the slang word: "));
-
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JTextField textField = new JTextField("", 20);
         textField.addActionListener(this);
-        input.add(textField);
+
+        inputPanel.add(new JLabel("Enter the slang word: "));
+        inputPanel.add(textField);
 
         // Output part
-        JPanel output = new JPanel(new BorderLayout());
-        tableModel.addColumn("Slang word");
-        tableModel.addColumn("Definition");
-
-        JTable table = new JTable(tableModel);
-        table.setEnabled(false);
-
+        JPanel outputPanel = new JPanel(new BorderLayout());
+        CustomTable table = new CustomTable(tableModel);
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(5, 10, 300, 150);
         scroll.setVisible(true);
 
-        output.add(table.getTableHeader(), BorderLayout.NORTH);
-        output.add(scroll, BorderLayout.CENTER);
+        outputPanel.add(table.getTableHeader(), BorderLayout.NORTH);
+        outputPanel.add(scroll, BorderLayout.CENTER);
 
         // Card 1
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(input);
-        add(output);
+        add(inputPanel);
+        add(outputPanel);
     }
 }

@@ -11,20 +11,25 @@ public class App {
     private JPanel content;
     private DefaultTableModel tableModelHistory;
     private JPanel cards[];
-    public static final String FEATURES[] = {"1. Search by slang word",
-            "2. Search by definition",
-            "3. View history",
-            "4. Add slang word",
-            "5. Edit slang word",
-            "6. Delete slang word",
-            "7. Reset to the original dictionary",
-            "8. Random slang word",
-            "9. Game 1",
-            "10. Game 2"};
+    public static final String FEATURES[] = {"Search by slang word",
+            "Search by definition",
+            "Search history",
+            "Add",
+            "Edit",
+            "Delete",
+            "Reset",
+            "Random",
+            "Quiz 1",
+            "Quiz 2"};
     public static final int INDEX_RESET = 6;
+    public static final int WIDTH_COLUMN_SLANG_WORD = 120;
+    public static final int MAX_WIDTH_COLUMN_SLANG_WORD = 180;
     public static final String CONSTRAINT_CARD_MENU = "MENU";
+    public static final String SLANG_WORD = "Slang word";
+    public static final String DEFINITION = "Definition";
 
     public App() {
+
         dictionary = new Dictionary();
         cards = new JPanel[FEATURES.length + 1]; // +card of menu
         tableModelHistory = new DefaultTableModel();
@@ -83,8 +88,8 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.addComponentToPane(frame.getContentPane());
-        frame.setJMenuBar(new Menu(frame, dictionary, content));
 
+        frame.setJMenuBar(new Menu(frame, dictionary, content));
         frame.pack();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
