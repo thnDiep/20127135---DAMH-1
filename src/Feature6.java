@@ -39,15 +39,17 @@ public class Feature6 extends JPanel implements ActionListener {
 
         // TextField
         slangWordTextField = new JTextField();
+        slangWordTextField.setFont(App.SMALL_FONT);
         slangWordTextField.setMaximumSize(
                 new Dimension(1000, App.TEXTFIELD_HEIGH));
 
         // Label
         JLabel headerLabel =
                 new JLabel("Delete a slang word in dictionary", SwingUtilities.CENTER);
+        headerLabel.setFont(App.HEADING_FONT);
+
         JLabel slangWordLabel =
                 new JLabel("Enter the slang word you want to delete");
-        headerLabel.setFont(App.HEADING_FONT);
         slangWordLabel.setFont(App.SMALL_FONT);
 
         // Button

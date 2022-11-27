@@ -43,21 +43,26 @@ public class Feature4 extends JPanel implements ActionListener {
 
         // TextField
         slangWordTextField = new JTextField();
-        definitionTextField = new JTextField();
+        slangWordTextField.setFont(App.SMALL_FONT);
         slangWordTextField.setMaximumSize(
                 new Dimension(1000, App.TEXTFIELD_HEIGH));
+
+        definitionTextField = new JTextField();
+        definitionTextField.setFont(App.SMALL_FONT);
         definitionTextField.setMaximumSize(
                 new Dimension(1000, App.TEXTFIELD_HEIGH));
 
         // Label
         JLabel headerLabel =
                 new JLabel("Add the new slang word to dictionary", SwingUtilities.CENTER);
+        headerLabel.setFont(App.HEADING_FONT);
+
         JLabel slangWordLabel =
                 new JLabel("Enter the new slang word");
+        slangWordLabel.setFont(App.SMALL_FONT);
+
         JLabel definitionLabel =
                 new JLabel("Enter the definition of the new slang word part");
-        headerLabel.setFont(App.HEADING_FONT);
-        slangWordLabel.setFont(App.SMALL_FONT);
         definitionLabel.setFont(App.SMALL_FONT);
 
         // Button

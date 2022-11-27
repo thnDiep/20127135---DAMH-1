@@ -4,13 +4,13 @@ import java.util.*;
 public class Dictionary {
     private static final String ORIGINAL_DICTIONARY_FILENAME = "original-slang.txt";
     private static final String DICTIONARY_FILENAME = "slang.txt";
-    private String[] options = {"Overwrite", "Duplicate"};
+    private final String[] options = {"Overwrite", "Duplicate"};
 
-    private Map<String, Set<String>> dictionary;
+    private final Map<String, Set<String>> dictionary;
     private Map<String, Set<String>> subDictionary; // save slang words searched
 
     public Dictionary() {
-        this.dictionary = new HashMap<String, Set<String>>();
+        this.dictionary = new TreeMap<String, Set<String>>();
 
         try {
             this.readFile(DICTIONARY_FILENAME);
@@ -21,7 +21,7 @@ public class Dictionary {
 
     // Feature 1
     public void searchWordBySlangWord(String keyWord) {
-        subDictionary = new HashMap<String, Set<String>>();
+        subDictionary = new TreeMap<String, Set<String>>(Collections.reverseOrder());
 
         for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
             String key = entry.getKey();
@@ -34,7 +34,7 @@ public class Dictionary {
 
     // Feature 2
     public void searchWordByDefinition(String definition) {
-        subDictionary = new HashMap<String, Set<String>>();
+        subDictionary = new TreeMap<String, Set<String>>(Collections.reverseOrder());
 
         for (Map.Entry<String, Set<String>> entry : dictionary.entrySet()) {
             String key = entry.getKey();

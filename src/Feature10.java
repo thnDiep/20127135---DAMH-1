@@ -83,7 +83,7 @@ public class Feature10 extends JPanel implements ActionListener {
 
     public void createStartGUI(JPanel pane){
         // Button
-        startBtn = new JButton("START QUIZ");
+        startBtn = new JButton("START QUIZ 2");
         startBtn.setFont(App.LARGE_FONT);
         startBtn.setPreferredSize(new Dimension(250, 60));
         startBtn.setMaximumSize(new Dimension(250, 60));
@@ -106,9 +106,9 @@ public class Feature10 extends JPanel implements ActionListener {
     public void createQuizGUI(JPanel pane) {
         // Question (PAGE_START)
         JLabel questionLabel = new JLabel("Select slang word of ");
-        definitionLabel = new JLabel();
-
         questionLabel.setFont(App.LARGE_FONT);
+
+        definitionLabel = new JLabel();
         definitionLabel.setFont(App.HEADING_FONT);
 
         JPanel definitionPanel = new JPanel();

@@ -31,22 +31,28 @@ public class Feature5 extends JPanel implements ActionListener {
         this.dictionary = dictionary;
 
         // TextField
+        // TextField
         slangWordTextField = new JTextField();
-        definitionTextField = new JTextField();
+        slangWordTextField.setFont(App.SMALL_FONT);
         slangWordTextField.setMaximumSize(
                 new Dimension(1000, App.TEXTFIELD_HEIGH));
+
+        definitionTextField = new JTextField();
+        definitionTextField.setFont(App.SMALL_FONT);
         definitionTextField.setMaximumSize(
                 new Dimension(1000, App.TEXTFIELD_HEIGH));
 
         // Label
         JLabel headerLabel =
                 new JLabel("Edit a slang word in dictionary", SwingUtilities.CENTER);
+        headerLabel.setFont(App.HEADING_FONT);
+
         JLabel slangWordLabel =
                 new JLabel("Enter the slang word you want to edit");
+        slangWordLabel.setFont(App.SMALL_FONT);
+
         JLabel definitionLabel =
                 new JLabel("Enter the definition of the slang word");
-        headerLabel.setFont(App.HEADING_FONT);
-        slangWordLabel.setFont(App.SMALL_FONT);
         definitionLabel.setFont(App.SMALL_FONT);
 
         // Button

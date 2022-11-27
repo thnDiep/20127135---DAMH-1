@@ -40,7 +40,9 @@ public class Feature2 extends JPanel implements ActionListener {
         // Input part
         JLabel label = new JLabel("Enter the definition: ");
         label.setFont(App.SMALL_FONT);
+
         JTextField textField = new JTextField("");
+        textField.setFont(App.SMALL_FONT);
         textField.setPreferredSize(new Dimension(App.TEXTFIELD_WIDTH, App.TEXTFIELD_HEIGH));
         textField.addActionListener(this);
 

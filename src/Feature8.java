@@ -45,11 +45,12 @@ public class Feature8 extends JPanel implements ActionListener, ItemListener {
 
         // Label
         keyLabel = new JLabel("");
-        JLabel slangWordLabel = new JLabel("Random slang word: ");
-        JLabel definitionLabel = new JLabel("Definitions");
-
         keyLabel.setFont(App.HEADING_FONT);
+
+        JLabel slangWordLabel = new JLabel("Random slang word: ");
         slangWordLabel.setFont(App.LARGE_FONT);
+
+        JLabel definitionLabel = new JLabel("Definitions");
         definitionLabel.setFont(App.LARGE_FONT);
 
         // Text area
