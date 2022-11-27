@@ -42,6 +42,9 @@ public class App {
 
     private void createFeatureGUI(int i) {
         switch (i) {
+            case 0:
+                cards[0] = new StartGUI();
+                break;
             case 1:
                 cards[1] = new Feature1(dictionary, tableModelHistory);
                 break;

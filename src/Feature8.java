@@ -56,8 +56,12 @@ public class Feature8 extends JPanel implements ActionListener {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        centerPanel.add(Box.createRigidArea(new Dimension(10, 20)));
+        centerPanel.add(Box.createRigidArea(new Dimension(10, 10)));
         centerPanel.add(valueLabel);
+
+        JScrollPane scrollCenter = new JScrollPane(centerPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // Line start panel
         JPanel lineStartPanel = new JPanel();
@@ -82,7 +86,7 @@ public class Feature8 extends JPanel implements ActionListener {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(headerPanel, BorderLayout.PAGE_START);
         panel.add(lineStartPanel, BorderLayout.LINE_START);
-        panel.add(centerPanel, BorderLayout.CENTER);
+        panel.add(scrollCenter, BorderLayout.CENTER);
         panel.add(bottomPanel, BorderLayout.PAGE_END);
 
         // Card 8

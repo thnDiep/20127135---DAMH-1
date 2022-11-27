@@ -33,13 +33,16 @@ class Menu extends JMenuBar implements ActionListener {
         this.dictionary = dictionary;
         this.content = content;
         this.menu = new JMenu(App.CONSTRAINT_CARD_MENU);
+        menu.setFont(App.NORMAL_FONT);
 
         for (String menuItemName : App.FEATURES) {
             JMenuItem menuItem = new JMenuItem(menuItemName);
+            menuItem.setFont(App.NORMAL_FONT);
             menuItem.addActionListener(this);
             this.menu.add(menuItem);
         }
+
         add(menu);
-        setPreferredSize(new Dimension(0, 30));
+        setPreferredSize(new Dimension(0, 40));
     }
 }
