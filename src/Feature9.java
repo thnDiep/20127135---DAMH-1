@@ -111,7 +111,7 @@ public class Feature9 extends JPanel implements ActionListener {
         slangWordLabel.setFont(App.HEADING_FONT);
 
         JPanel questionPanel = new JPanel(new FlowLayout());
-        questionPanel.setPreferredSize(new Dimension(0, 100));
+        questionPanel.setPreferredSize(new Dimension(0, 80));
         questionPanel.add(questionLabel);
         questionPanel.add(slangWordLabel);
 

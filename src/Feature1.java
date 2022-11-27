@@ -23,7 +23,7 @@ public class Feature1 extends JPanel implements ActionListener {
                 row[1] += (String) entry.getValue().toArray()[i];
 
                 if (i < entry.getValue().size() - 1) {
-                    row[1] += ", ";
+                    row[1] += "\n";
                 }
             }
 
@@ -51,7 +51,6 @@ public class Feature1 extends JPanel implements ActionListener {
         // Output part
         CustomTable table = new CustomTable(tableModel);
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setVisible(true);
 
         JPanel outputPanel = new JPanel(new BorderLayout());
         outputPanel.add(table.getTableHeader(), BorderLayout.NORTH);

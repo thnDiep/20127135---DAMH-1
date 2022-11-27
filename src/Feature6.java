@@ -40,7 +40,7 @@ public class Feature6 extends JPanel implements ActionListener {
         // TextField
         slangWordTextField = new JTextField();
         slangWordTextField.setMaximumSize(
-                new Dimension(App.MIN_WIDTH, App.TEXTFIELD_HEIGH));
+                new Dimension(1000, App.TEXTFIELD_HEIGH));
 
         // Label
         JLabel headerLabel =

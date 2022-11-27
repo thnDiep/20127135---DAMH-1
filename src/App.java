@@ -10,8 +10,8 @@ public class App {
     private JPanel content;
     private CustomTableModel tableModelHistory;
     private JPanel cards[];
-    public static final int MIN_WIDTH = 800;
-    public static final int MIN_HEIGHT = 300;
+    public static final int MIN_WIDTH = 700;
+    public static final int MIN_HEIGHT = 500;
     public static Font SMALL_FONT, NORMAL_FONT, LARGE_FONT, HEADING_FONT;
     public static final int TEXTFIELD_HEIGH = 24;
     public static final int TEXTFIELD_WIDTH = 500;
@@ -37,7 +37,7 @@ public class App {
         SMALL_FONT = new Font("Roboto", Font.PLAIN, 18);
         NORMAL_FONT = new Font("Roboto", Font.PLAIN, 24);
         LARGE_FONT = new Font("Roboto", Font.PLAIN, 30);
-        HEADING_FONT = new Font("Roboto", Font.BOLD, 40);
+        HEADING_FONT = new Font("Roboto", Font.BOLD, 36);
     }
 
     private void createFeatureGUI(int i) {
@@ -103,8 +103,6 @@ public class App {
 
         frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setResizable(false);
-        frame.pack();
-
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {

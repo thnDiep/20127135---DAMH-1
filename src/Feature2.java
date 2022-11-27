@@ -23,7 +23,7 @@ public class Feature2 extends JPanel implements ActionListener {
                 row[1] += (String) entry.getValue().toArray()[i];
 
                 if (i < entry.getValue().size() - 1) {
-                    row[1] += ", ";
+                    row[1] += "\n";
                 }
             }
 
