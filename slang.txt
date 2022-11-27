@@ -1912,6 +1912,7 @@ DWU`Don't Wait Up
 QT`Cutie
 R5`Region 5 (DVD region)
 SWED`Smoke Weed Every Day
+newSl`newDefinition too long to test quiz 2 scoll bar hihi hehe tran huynh ngoc diep tran thao quyen iu em
 YGTR`You Got That Right
 MUSM`Miss You So Much
 YGTI`You Get The Idea
@@ -5411,7 +5412,6 @@ LOLWUT`What?
 HOMEY`Homeboy
 MRE`Meal, Ready to Eat
 MRI`Magnetic Resonance Imaging
-nsl`hihi| too long| definition 1| multi definition| definition 22| New slang word test the word tooo longggggggggggggggggg haha hihi emememmmmmmmmmmmmmmmmmmmmmmmmm| to long too long nha too long to long too long nha too long to long too long nha too long to long too long nha too long to long too long nha too long to long too long nha too long
 HUGGLE`Hug and snuggle
 IRDC`I Really Don't Care
 MRP`Manufacturer's Recommended Price

@@ -14,7 +14,7 @@ public class Feature10 extends JPanel implements ActionListener {
 
     private JPanel quizPanel, startPanel;
     private JButton startBtn, nextButton;
-    private JLabel slangWordLabel, numQuestionLabel, numCorrectLabel, numWrongLabel;
+    private JLabel definitionLabel, numQuestionLabel, numCorrectLabel, numWrongLabel;
     ButtonGroup answersGroup;
     private JRadioButton rBtnA, rBtnB, rBtnC, rBtnD;
 
@@ -106,16 +106,23 @@ public class Feature10 extends JPanel implements ActionListener {
     public void createQuizGUI(JPanel pane) {
         // Question (PAGE_START)
         JLabel questionLabel = new JLabel("Select slang word of ");
-        slangWordLabel = new JLabel();
+        definitionLabel = new JLabel();
 
         questionLabel.setFont(App.LARGE_FONT);
-        slangWordLabel.setFont(App.HEADING_FONT);
+        definitionLabel.setFont(App.HEADING_FONT);
 
-        JPanel questionPanel = new JPanel(new FlowLayout());
-        questionPanel.setPreferredSize(new Dimension(0, 100));
+        JPanel definitionPanel = new JPanel();
+        definitionPanel.add(definitionLabel);
 
+        JScrollPane scrollPane = new JScrollPane(definitionPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(0, 75));
+
+        JPanel questionPanel = new JPanel();
+        questionPanel.setLayout(new BoxLayout(questionPanel, BoxLayout.Y_AXIS));
         questionPanel.add(questionLabel);
-        questionPanel.add(slangWordLabel);
+        questionPanel.add(scrollPane);
 
         // Answer (CENTER - 1)
         JLabel answerLabel = new JLabel("The answer: ");
@@ -208,7 +215,7 @@ public class Feature10 extends JPanel implements ActionListener {
             question = quiz.keySet().toArray()[index].toString();
             answer = quiz.get(question);
 
-            slangWordLabel.setText(question);
+            definitionLabel.setText(question);
             ArrayList<Integer> randomNumbers = Quiz.randomNumbers(4);
             rBtnA.setText(answer.get(randomNumbers.get(0)));
             rBtnB.setText(answer.get(randomNumbers.get(1)));

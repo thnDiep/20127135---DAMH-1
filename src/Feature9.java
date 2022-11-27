@@ -110,10 +110,18 @@ public class Feature9 extends JPanel implements ActionListener {
         questionLabel.setFont(App.LARGE_FONT);
         slangWordLabel.setFont(App.HEADING_FONT);
 
-        JPanel questionPanel = new JPanel(new FlowLayout());
-        questionPanel.setPreferredSize(new Dimension(0, 80));
+        JPanel slangWordPanel = new JPanel();
+        slangWordPanel.add(slangWordLabel);
+
+        JScrollPane scrollPane = new JScrollPane(slangWordPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(0, 75));
+
+        JPanel questionPanel = new JPanel();
+        questionPanel.setLayout(new BoxLayout(questionPanel, BoxLayout.Y_AXIS));
         questionPanel.add(questionLabel);
-        questionPanel.add(slangWordLabel);
+        questionPanel.add(scrollPane);
 
         // Answer (CENTER - 1)
         JLabel answerLabel = new JLabel("The answer: ");
