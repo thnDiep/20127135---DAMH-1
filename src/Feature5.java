@@ -31,7 +31,6 @@ public class Feature5 extends JPanel implements ActionListener {
         this.dictionary = dictionary;
 
         // TextField
-        // TextField
         slangWordTextField = new JTextField();
         slangWordTextField.setFont(App.SMALL_FONT);
         slangWordTextField.setMaximumSize(

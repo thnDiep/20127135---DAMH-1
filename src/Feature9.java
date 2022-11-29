@@ -64,7 +64,7 @@ public class Feature9 extends JPanel implements ActionListener {
 
     public Feature9(Dictionary dictionary) {
         myQuiz = new Quiz(dictionary);
-        quiz = myQuiz.createQuizForFeature9(10);
+        quiz = myQuiz.createQuizSlangWord(10);
 
         startPanel = new JPanel();
         createStartGUI(startPanel);
@@ -233,7 +233,7 @@ public class Feature9 extends JPanel implements ActionListener {
         startPanel.setVisible(false);
         quizPanel.setVisible(true);
         index = 0;
-        quiz = myQuiz.createQuizForFeature9(10);
+        quiz = myQuiz.createQuizSlangWord(10);
         updateQuestion();
     }
 

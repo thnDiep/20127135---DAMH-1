@@ -23,7 +23,7 @@ public class Quiz {
         }
     }
 
-    public Map<String, ArrayList<String>> createQuizForFeature9(int numberQ){
+    public Map<String, ArrayList<String>> createQuizSlangWord(int numberQ){
         quiz.clear();
         numberQuestion = numberQ;
         correctAnswer = 0;
@@ -62,7 +62,7 @@ public class Quiz {
         return quiz;
     }
 
-    public Map<String, ArrayList<String>> createQuizForFeature10(int numberQ){
+    public Map<String, ArrayList<String>> createQuizDefinition(int numberQ){
         quiz.clear();
         numberQuestion = numberQ;
         correctAnswer = 0;
